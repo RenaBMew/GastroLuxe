@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 
@@ -19,28 +20,28 @@ export default function Search() {
     }
   };
 
-  const handleSubmit = async (recipe) => {
-    console.log(session);
+  const AddFavorite = async (recipe) => {
+    console.log(session.user.email);
     try {
-      const res = await fetch("/api/Favorites/Add", {
+      const response = await fetch("/api/Favorites", {
         method: "POST",
-        body: JSON.stringify({
-          userId: session.user.email,
-          ...recipe,
+        headers: {
           "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: session.user.email,
+          ...recipe,
         }),
       });
       console.log(recipe);
 
-      if (!res.ok) {
-        throw new Error("Network response was not ok");
+      if (response.ok) {
+        console.log("Recipe added to favorites!");
+      } else {
+        console.error("Error adding to favorites:", await response.json());
       }
-
-      const response = await res.json();
-      console.log(response.message);
-      setFavorites([...favorites, recipe]);
     } catch (error) {
-      console.error(error);
+      console.error("Error adding to favorites:", error);
     }
   };
 
@@ -57,7 +58,7 @@ export default function Search() {
         <div key={recipe.id}>
           <h3>{recipe.title}</h3>
           <img src={recipe.image} alt={recipe.title} />
-          <button onClick={() => handleSubmit(recipe)}>Add to Favorites</button>
+          <button onClick={() => AddFavorite(recipe)}>Add to Favorites</button>
         </div>
       ))}
     </div>

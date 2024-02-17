@@ -37,3 +37,6 @@ next-env.d.ts
 
 /initial
 .env
+app/api/Favorites/Add/new.js
+app/Discover/new.jsx
+app/Discover/test.jsx
