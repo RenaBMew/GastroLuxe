@@ -1,17 +1,15 @@
-"use client";
 import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 
 export default function Search() {
   const [query, setQuery] = useState("");
   const [recipes, setRecipes] = useState([]);
-  const [favorites, setFavorites] = useState([]);
   const { data: session } = useSession();
 
   const handleSearch = async () => {
     try {
       const response = await fetch(
-        `https://api.spoonacular.com/recipes/complexSearch?query=${query}&instructionsRequired=true&number=5&apiKey=da8821d24b1f4f9784c73edfc69a30ed`
+        `https://api.spoonacular.com/recipes/complexSearch?query=${query}&number=5&apiKey=da8821d24b1f4f9784c73edfc69a30ed`
       );
       const data = await response.json();
       setRecipes(data.results);
@@ -21,6 +19,7 @@ export default function Search() {
   };
 
   const AddFavorite = async (recipe) => {
+    console.log(session);
     console.log(session.user.email);
     try {
       const response = await fetch("/api/Favorites", {
@@ -29,7 +28,7 @@ export default function Search() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: session.user.email,
+          userId: session.user.email,
           ...recipe,
         }),
       });

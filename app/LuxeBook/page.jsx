@@ -1,20 +1,18 @@
-import { getServerSession } from "next-auth";
-import { options } from "../api/auth/[...nextauth]/options";
+"use client";
 import React from "react";
-import { redirect } from "next/navigation";
+import LuxeBook from "../(components)/LuxeBook";
+import { SessionProvider } from "next-auth/react";
 
-const LuxeBook = async () => {
-  const session = await getServerSession(options);
-  if (!session) {
-    redirect("/api/auth/signin?callbackUrl=/Member"); //When logging back in will be directed to member page.
-  }
+const FavoritesPage = () => {
   return (
     <div>
-      <h1>Member Server Session</h1>
-      <p>{session?.user.email}</p>
-      <p>{session?.user.role}</p>
+      <h1>Your LuxeBook</h1>
+      <p>Here is what you have Luxed so far!</p>
+      <SessionProvider>
+        <LuxeBook />
+      </SessionProvider>
     </div>
   );
 };
 
-export default LuxeBook;
+export default FavoritesPage;

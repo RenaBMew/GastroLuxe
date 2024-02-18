@@ -1,15 +1,12 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, model, models } from "mongoose";
 
 const FavoriteSchema = new Schema({
-  email: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
   id: Number,
   title: String,
   image: String,
 });
 
-export default mongoose.models.Favorites ||
-  mongoose.model("Favorites", FavoriteSchema);
+export default {
+  FavoriteSchema,
+  model: models.FavoriteList || model("FavoriteList", FavoriteSchema),
+};

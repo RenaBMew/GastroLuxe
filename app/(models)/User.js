@@ -1,4 +1,6 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, model, models } from "mongoose";
+import FavoriteList from "./Favorites";
+import MealSchema from "./Meals";
 
 mongoose.connect(process.env.MONGODB_URI);
 mongoose.Promise = global.Promise;
@@ -19,12 +21,7 @@ const UserSchema = new Schema({
     minlength: 5,
     maxlength: 500,
   },
-  favorites: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Favorites",
-    },
-  ],
+  favorites: [FavoriteList.FavoriteSchema],
   calendar: [
     {
       day: {
@@ -39,14 +36,9 @@ const UserSchema = new Schema({
           "Saturday",
         ],
       },
-      meals: [
-        {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Meals",
-        },
-      ],
+      meals: [MealSchema],
     },
   ],
 });
 
-export default mongoose.models.User || mongoose.model("User", UserSchema);
+export default models.User || model("User", UserSchema);

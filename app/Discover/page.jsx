@@ -6,8 +6,8 @@ import { SessionProvider } from "next-auth/react";
 const SearchRecipes = () => {
   return (
     <div>
-      <h1>Create an Account</h1>
-      <p>Use the form to create an account.</p>
+      <h1>Search for a Recipe</h1>
+      <p>Search for something yummy and add it to your LuxeBook!</p>
       <SessionProvider>
         <Search />
       </SessionProvider>
