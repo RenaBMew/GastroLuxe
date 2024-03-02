@@ -6,7 +6,7 @@ const MealSchema = new Schema({
   image: String,
   type: {
     type: String,
-    enum: ["breakfast", "lunch", "dinner", "snack"],
+    enum: ["breakfast", "lunch", "dinner"],
   },
 });
 

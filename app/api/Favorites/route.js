@@ -2,8 +2,7 @@ import { dbConnect } from "@/app/utils/db";
 import User from "@/app/(models)/User";
 import FavoriteList from "@/app/(models)/Favorites";
 import { NextResponse } from "next/server";
-
-let Types = require("mongoose").Types;
+import { Types } from "mongoose";
 
 export async function POST(request) {
   try {

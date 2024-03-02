@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function LuxeBook() {
   const { data: session } = useSession();
@@ -46,14 +48,31 @@ export default function LuxeBook() {
   };
 
   return (
-    <div>
-      <h1>LuxeBook</h1>
-      <div>
+    <div className="container mx-auto px-4">
+      <div className="grid grid-cols-4 gap-4 mt-4">
         {favorites.map((favorite) => (
-          <div key={favorite.id}>
-            <h3>{favorite.title}</h3>
-            <img src={favorite.image} alt={favorite.title} />
-            <button onClick={() => deleteFavorite(favorite._id)}>Delete</button>
+          <div
+            key={favorite.id}
+            className="relative flex flex-col items-center"
+          >
+            <Link href={`/Discover/Recipe/${favorite.id}`}>
+              <div className="relative w-64 h-64 rounded-lg">
+                <Image
+                  src={favorite.image}
+                  alt={favorite.title}
+                  width={300}
+                  height={300}
+                  className="rounded-lg"
+                />{" "}
+              </div>
+            </Link>
+            <h3 className="font-bold">{favorite.title}</h3>
+            <button
+              onClick={() => deleteFavorite(favorite._id)}
+              className="mt-2 px-4 py-2 bg-zinc text-white rounded hover:bg-gray-500"
+            >
+              UnLuxe
+            </button>
           </div>
         ))}
       </div>

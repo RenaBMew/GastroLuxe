@@ -1,22 +1,9 @@
-// export async function searchRecipes() {
-//   try {
-//     const APIKEY = process.env.SPOONACULARKEY;
-//     const SPOONURL = await fetch(
-//       `https://api.spoonacular.com/recipes/complexSearch?query=${query}&number=5&apiKey=${APIKEY}`
-//     );
-//     const response = await fetch(SPOONURL);
-//     const data = await response.data;
-//     return data;
-//     //setRecipes(data.results);
-//   } catch (error) {
-//     console.error("Error finding recipes: ", error);
-//   }
-// }
-
-// import { searchRecipes } from "../api/Search/route";
-
-// const handleSearch = async (e) => {
-//   e.preventDefault();
-//   const data = await searchRecipes({ query });
-//   setRecipes(data);
-// };
+export async function getRecipeDetails(id) {
+  const response = await fetch(
+    `https://api.spoonacular.com/recipes/${id}/information?apiKey=${process.env.NEXT_PUBLIC_SPOONACULAR_API_KEY}`
+  );
+  if (response.status !== 200) return null;
+  console.log(id);
+  const data = await response.json();
+  return data;
+}
