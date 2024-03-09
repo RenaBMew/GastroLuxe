@@ -1,45 +1,41 @@
 import { dbConnect } from "@/app/utils/db";
 import User from "@/app/(models)/User";
-import FavoriteList from "@/app/(models)/Favorites";
 import { NextResponse } from "next/server";
-import { Types } from "mongoose";
 
+//Add favorite to array
 export async function POST(request) {
   try {
     const body = await request.json();
-    const userId = body.userId;
-    let { id, title, image } = body;
-
-    if (!userId || !Types.ObjectId.isValid(body.id)) {
-      return NextResponse.json({ message: "Invalid user id" }, { status: 400 });
-    }
+    const { email, id, title, image } = body;
     await dbConnect();
-    let user = await User.find({ email: body.userId }).exec();
+    const user = await User.findOne({ email });
     if (!user) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
-
-    const newFavorite = new FavoriteList.model({
-      id,
-      title,
-      image,
-    });
-    let savedFavorite = await newFavorite.save();
-    user = user[0];
-    user.favorites = user.favorites.filter(
-      (favorite) => favorite.title !== title
+    const existingFavoriteIndex = user.favorites.findIndex(
+      (favorite) => favorite.title === title
     );
-    user.favorites.push(savedFavorite);
+    //TODO: add logic on search page to check if recipe is already in favorites
+    if (existingFavoriteIndex !== -1) {
+      user.favorites[existingFavoriteIndex].id = id;
+      user.favorites[existingFavoriteIndex].image = image;
+    } else {
+      user.favorites.push({
+        id,
+        title,
+        image,
+      });
+    }
+
     await user.save();
+
     console.log("Favorite added successfully");
     return NextResponse.json(
       { message: "Favorite added successfully" },
       { status: 200 }
     );
   } catch (error) {
-    console.log("bottom error catch");
-    console.log(error);
-
+    console.error("Error adding favorite:", error);
     return NextResponse.json(
       { message: "Error adding favorite" },
       { status: 500 }
@@ -47,10 +43,11 @@ export async function POST(request) {
   }
 }
 
+//GET favorites array
 export async function GET() {
   try {
     await dbConnect();
-    const favorites = await FavoriteList.model.find();
+    const favorites = await User.distinct("favorites", {});
     return NextResponse.json(favorites, { status: 200 });
   } catch (error) {
     console.error("Error fetching favorites:", error);
@@ -61,11 +58,18 @@ export async function GET() {
   }
 }
 
+/// Remove favorite from array
 export async function DELETE(request) {
   try {
-    const { id } = await request.json();
+    const { email, id } = await request.json();
     await dbConnect();
-    await FavoriteList.model.findByIdAndDelete(id);
+    const user = await User.findOne({ email });
+    if (!user) {
+      return NextResponse.json({ message: "User not found" }, { status: 404 });
+    }
+    user.favorites = user.favorites.filter((favorite) => favorite.id !== id);
+    await user.save();
+    console.log("Favorite deleted successfully");
     return NextResponse.json(
       { message: "Favorite deleted successfully" },
       { status: 200 }

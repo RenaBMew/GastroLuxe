@@ -33,7 +33,10 @@ export default function LuxeBook() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ id }),
+        body: JSON.stringify({
+          email: session.user.email,
+          id,
+        }),
       });
 
       if (response.ok) {
@@ -48,34 +51,38 @@ export default function LuxeBook() {
   };
 
   return (
-    <div className="container mx-auto px-4">
-      <div className="grid grid-cols-4 gap-4 mt-4">
-        {favorites.map((favorite) => (
-          <div
-            key={favorite.id}
-            className="relative flex flex-col items-center"
-          >
-            <Link href={`/Discover/Recipe/${favorite.id}`}>
-              <div className="relative w-64 h-64 rounded-lg">
-                <Image
-                  src={favorite.image}
-                  alt={favorite.title}
-                  width={300}
-                  height={300}
-                  className="rounded-lg"
-                />{" "}
-              </div>
-            </Link>
-            <h3 className="font-bold">{favorite.title}</h3>
-            <button
-              onClick={() => deleteFavorite(favorite._id)}
-              className="mt-2 px-4 py-2 bg-zinc text-white rounded hover:bg-gray-500"
+    <section id="LuxeBook" className="text-center">
+      <h1>Your LuxeBook</h1>
+      <p>Here is what you have Luxed so far!</p>
+      <div className="container mx-auto px-4 h-screen">
+        <div className="grid grid-cols-4 gap-4 mt-20">
+          {favorites.map((favorite) => (
+            <div
+              key={favorite.id}
+              className="relative flex flex-col items-center"
             >
-              UnLuxe
-            </button>
-          </div>
-        ))}
+              <Link href={`/Discover/Recipe/${favorite.id}`}>
+                <div className="relative w-64 h-64 rounded-lg mt-20">
+                  <Image
+                    src={favorite.image}
+                    alt={favorite.title}
+                    width={300}
+                    height={300}
+                    className="rounded-lg"
+                  />{" "}
+                </div>
+              </Link>
+              <h3 className="font-bold">{favorite.title}</h3>
+              <button
+                onClick={() => deleteFavorite(favorite.id)}
+                className="mt-2 px-4 py-2 bg-zinc text-white rounded hover:bg-gray-500"
+              >
+                UnLuxe
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

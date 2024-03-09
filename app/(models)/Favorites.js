@@ -1,4 +1,4 @@
-import mongoose, { Schema, model, models } from "mongoose";
+import { Schema } from "mongoose";
 
 const FavoriteSchema = new Schema({
   id: Number,
@@ -6,7 +6,4 @@ const FavoriteSchema = new Schema({
   image: String,
 });
 
-export default {
-  FavoriteSchema,
-  model: models.FavoriteList || model("FavoriteList", FavoriteSchema),
-};
+export default FavoriteSchema;

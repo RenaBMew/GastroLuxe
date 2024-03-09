@@ -37,13 +37,5 @@ next-env.d.ts
 
 /initial
 .env
-app/api/Favorites/Add/new.js
-app/Discover/new.jsx
-app/Discover/test.jsx
-0/new.js
-0/new.jsx
-0/test.jsx
-0/RecipeSearch.jsx
-0/route.js
-0/newS.jsx
-0/SearchOld.jsx
+.env.local
+0/

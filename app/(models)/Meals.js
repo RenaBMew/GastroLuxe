@@ -4,7 +4,7 @@ const MealSchema = new Schema({
   id: Number,
   title: String,
   image: String,
-  type: {
+  meal: {
     type: String,
     enum: ["breakfast", "lunch", "dinner"],
   },

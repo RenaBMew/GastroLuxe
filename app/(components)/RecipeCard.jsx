@@ -8,7 +8,7 @@ import { usePathname, useRouter } from "next/navigation";
 const RecipeCard = ({ recipe, handleView, handleFavorite, handleDelete }) => {
   return (
     <div>
-      <div className="flex justify-between items-start gap-5">
+      <div className="flex justify-between items-start gap-5 h-screen">
         <div className="flex-1 flex justify-start items-center gap-3 cursor-pointer">
           <Image
             src={recipe.image}

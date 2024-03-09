@@ -1,5 +1,5 @@
 import mongoose, { Schema, model, models } from "mongoose";
-import FavoriteList from "./Favorites";
+import FavoriteSchema from "./Favorites";
 import MealSchema from "./Meals";
 
 mongoose.connect(process.env.MONGODB_URI);
@@ -21,7 +21,7 @@ const UserSchema = new Schema({
     minlength: 5,
     maxlength: 500,
   },
-  favorites: [FavoriteList.FavoriteSchema],
+  favorites: [FavoriteSchema],
   calendar: [
     {
       day: {
