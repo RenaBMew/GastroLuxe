@@ -1,6 +1,38 @@
 import { dbConnect } from "@/app/utils/db";
 import User from "@/app/(models)/User";
 import { NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import { options } from "../auth/[...nextauth]/options";
+
+export async function GET() {
+  try {
+    const session = await getServerSession(options);
+    if (!session) {
+      return NextResponse.json(
+        { message: "Session not found" },
+        { status: 404 }
+      );
+    }
+
+    const email = session.user.email;
+    console.log("BE Email:", email);
+
+    await dbConnect();
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return NextResponse.json({ message: "User not found" }, { status: 404 });
+    }
+    const favorites = user.favorites;
+    return NextResponse.json(favorites, { status: 200 });
+  } catch (error) {
+    console.error("Error fetching favorites:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}
 
 //Add favorite to array
 export async function POST(request) {
@@ -38,21 +70,6 @@ export async function POST(request) {
     console.error("Error adding favorite:", error);
     return NextResponse.json(
       { message: "Error adding favorite" },
-      { status: 500 }
-    );
-  }
-}
-
-//GET favorites array
-export async function GET() {
-  try {
-    await dbConnect();
-    const favorites = await User.distinct("favorites", {});
-    return NextResponse.json(favorites, { status: 200 });
-  } catch (error) {
-    console.error("Error fetching favorites:", error);
-    return NextResponse.json(
-      { error: "Internal Server Error" },
       { status: 500 }
     );
   }

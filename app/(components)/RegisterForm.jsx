@@ -7,6 +7,7 @@ export default function RegisterForm() {
   const router = useRouter();
   const [formData, setFormData] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
+  const [accountCreated, setAccountCreated] = useState(false);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -30,8 +31,12 @@ export default function RegisterForm() {
       const response = await res.json();
       setErrorMessage(response.message);
     } else {
-      router.refresh();
-      router.push("/");
+      setAccountCreated(true);
+      setTimeout(() => {
+        setAccountCreated(false);
+        router.refresh();
+        router.push("/");
+      }, 100000);
     }
   };
 
@@ -39,6 +44,16 @@ export default function RegisterForm() {
     <section id="Register Form" className="text-center">
       <h1>Create an Account</h1>
       <p>Use the form to create an account.</p>
+      {accountCreated && (
+        <div className="flex justify-center">
+          <div className="bg-green-200 p-4 w-1/2 mb-4">
+            <p className="text-green-800">
+              Your account was created successfully!
+            </p>
+            <p>Please login to continue.</p>
+          </div>
+        </div>
+      )}
       <div className="flex justify-center text-center h-screen">
         <form
           onSubmit={handleSubmit}
@@ -81,7 +96,8 @@ export default function RegisterForm() {
           <input
             type="submit"
             value="Create Account"
-            className="mt-2 px-4 py-2 bg-zinc text-white rounded hover:bg-zinc-700"
+            className="mt-2 px-4 py-2 bg-zinc text-white rounded hover:bg-gray-400"
+            style={{ cursor: "pointer" }}
           />
         </form>
         <p className="text-red-500">{errorMessage}</p>

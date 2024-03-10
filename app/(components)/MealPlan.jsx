@@ -1,16 +1,39 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import { FaTrash } from "react-icons/fa";
 
 export default function MealPlan() {
+  const [session, setSession] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [calendar, setCalendar] = useState([]);
-  const { data: session } = useSession();
+
+  useEffect(() => {
+    const fetchSession = async () => {
+      const session = await getSession();
+      setSession(session);
+      setLoading(false);
+    };
+
+    fetchSession();
+  }, []);
+
+  useEffect(() => {
+    if (!loading && session) {
+      console.log("FE User:", session.user.email);
+      getCalendar();
+    }
+  }, [session, loading]);
 
   const getCalendar = async () => {
     try {
-      const response = await fetch("/api/MealPlan");
+      const response = await fetch("/api/MealPlan", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       const data = await response.json();
       const sortMeals = sortMealsByDay(data);
       setCalendar(sortMeals);
@@ -18,10 +41,6 @@ export default function MealPlan() {
       console.error("Error fetching calendar:", error);
     }
   };
-
-  useEffect(() => {
-    getCalendar();
-  }, []);
 
   //sort by day, iterate, return array
   const sortMealsByDay = (data) => {

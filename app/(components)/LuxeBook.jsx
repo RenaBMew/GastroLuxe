@@ -1,11 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { getSession } from "next-auth/react";
 
 export default function LuxeBook() {
-  const { data: session } = useSession();
+  const [session, setSession] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [favorites, setFavorites] = useState([]);
+
+  useEffect(() => {
+    const fetchSession = async () => {
+      const session = await getSession();
+      setSession(session);
+      setLoading(false);
+    };
+
+    fetchSession();
+  }, []);
+
+  useEffect(() => {
+    if (!loading && session) {
+      console.log("FE User:", session.user.email);
+      getFavorites();
+    }
+  }, [session, loading]);
 
   const getFavorites = async () => {
     try {
@@ -21,10 +39,6 @@ export default function LuxeBook() {
       console.error("Error fetching favorites:", error);
     }
   };
-
-  useEffect(() => {
-    getFavorites();
-  }, []);
 
   const deleteFavorite = async (id) => {
     try {

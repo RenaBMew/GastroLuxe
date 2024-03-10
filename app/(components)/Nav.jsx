@@ -18,12 +18,14 @@ const Nav = async () => {
           <Link href="/">GastroLuxe</Link>
         </div>
         <div className="flex gap-10">
-          <Link href="/Discover">Discover</Link>
-          <Link href="/LuxeBook">LuxeBook</Link>
-          <Link href="/MealPlan">Meal Plan</Link>
-          {/*<Link href="/ClientMember">Client</Link>*/}
           {session ? (
-            <Link href="/api/auth/signout?callbackUrl=/">Logout</Link>
+            <>
+              <Link href="/Discover">Discover</Link>
+              <Link href="/LuxeBook">LuxeBook</Link>
+              <Link href="/MealPlan">Meal Plan</Link>
+              {/*<Link href="/ClientMember">Client</Link>*/}
+              <Link href="/api/auth/signout?callbackUrl=/">Logout</Link>
+            </>
           ) : (
             <>
               <Link href="/api/auth/signin">Login</Link>
