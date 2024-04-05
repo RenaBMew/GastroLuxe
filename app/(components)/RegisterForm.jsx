@@ -44,7 +44,7 @@ export default function RegisterForm() {
     <section id="Register Form" className="neutralBG">
       <div className="formCard">
         <h1 className="text-center">Create an Account</h1>
-        <p className="text-center">Let's Get Cookin'!</p>
+        <p className="text-center">Lets Get Cookin!</p>
         <div className="text-center mt-10">
           {accountCreated && (
             <div className="flex justify-center">
