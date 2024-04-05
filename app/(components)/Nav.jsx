@@ -2,22 +2,22 @@ import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { options } from "../api/auth/[...nextauth]/options";
 import { RiVipCrown2Fill } from "react-icons/ri";
+import Image from "next/image";
 
 const Nav = async () => {
   const session = await getServerSession(options);
   return (
-    <header className="bg-zinc text-white">
-      <nav className="flex justify-between items-center w-full px-10 py-4">
-        <div className="flex items-center gap-2">
-          <Link href="/">
-            <RiVipCrown2Fill
-              className="text-white hover:text-white"
-              size={30}
-            />
-          </Link>
-          <Link href="/">GastroLuxe</Link>
-        </div>
-        <div className="flex gap-10">
+    <header>
+      <nav>
+        <Link href="/">
+          <Image
+            src="/gastroluxe.icon.png"
+            alt="GastroLuxe Logo"
+            width={60}
+            height={60}
+          />
+        </Link>
+        <div>
           {session ? (
             <>
               <Link href="/Discover">Discover</Link>

@@ -2,18 +2,32 @@
 
 ## _A Meal Planning App for Luxe Gastrophiles._
 
-You are what you eat, so why not be luxurious?
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) that allows users to search the [`Spoonacular API`](https://spoonacular.com/food-api) for meals and create a favorites list for quick reference to preferred meals. Users who enjoy organizing their day will also be able to create a meal plan that features breakfast, lunch, and dinner options.
 
-![Tasty Food Stuffs, Photo credit: Joseph Gonzalez.](/public/joseph-gonzalez-fdlZBWIP0aM-unsplash.jpg)
+This application is created to help individuals experience and learn about the joy of cooking and how preparing meals at home can help save money, maintain a healthier lifestyle, and the joy of sharing meals with others.
 
-## What is GastroLuxe?
+![Splash Page Preview](./public/gastroluxe.splash.png "Passing")
 
-This application allows users to search for meals and compile a favorites list for quick reference to preferred meals. Users who enjoy organizing their day will also be able to create a meal plan that features, breakfast, lunch, and dinner options.
+## Possible Additions
 
-This application is created to help individuals learn more about the joy of cooking and how self prepped meals can help individuals save money and maintain a healthier lifestyle.
+**Social Features:**
 
-## Future Additions
+- User Ratings/Likes and Comments on Recipe ID Page.
+- Reward badges for highly-rated recipes.
+- User submitted recipes
 
-Possible implementations could be the addition of social features, such as, allowing users to submit their own meals for others to review and save (this will require heavy content monderation). These recipes (or all recipes) can also feature a comments or liked feature for additional interactions. User submitted meals can also be subject to a rwards system where top rated meals can earn their creator special badges for recognition.
+**Shopping:**
 
-Some other additions can be real-time price data, with the ability to create a shopping cart and shopping list for fast grocery purchase.
+- Add items to a cart and check out via 3rd party API.
+- Real time ingredient prices.
+
+**Extend API Use:**
+
+- Add additional Meal APIs for variety and backup for API limits.
+
+## WIP // TODOS
+
+**TODOs:**
+
+- Added to pages/routes. Some logic/UI features are needed. Such as: meal existence verification/restriction, user email verification (next-auth), meal deletion improvements, modal windows for 'Add to Calendar', and most likely many other things I did not consider or find yet.
+- Some additional work is needed for mobile users: icon activation adjustments, calendar view adjustments (accordion style layout for calendar for better interactions and view).

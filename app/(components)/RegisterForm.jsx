@@ -41,66 +41,68 @@ export default function RegisterForm() {
   };
 
   return (
-    <section id="Register Form" className="text-center">
-      <h1>Create an Account</h1>
-      <p>Use the form to create an account.</p>
-      {accountCreated && (
-        <div className="flex justify-center">
-          <div className="bg-green-200 p-4 w-1/2 mb-4">
-            <p className="text-green-800">
-              Your account was created successfully!
-            </p>
-            <p>Please login to continue.</p>
-          </div>
+    <section id="Register Form" className="neutralBG">
+      <div className="formCard">
+        <h1 className="text-center">Create an Account</h1>
+        <p className="text-center">Let's Get Cookin'!</p>
+        <div className="text-center mt-10">
+          {accountCreated && (
+            <div className="flex justify-center">
+              <div className="bg-green-200 p-4 w-1/2 mb-4">
+                <p className="text-green-800">
+                  Your account was created successfully!
+                </p>
+                <p>Please login to continue.</p>
+              </div>
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} method="post">
+            <label>Name</label>
+            <br />
+            <input
+              id="name"
+              name="name"
+              type="text"
+              onChange={handleChange}
+              required={true}
+              value={formData.name}
+              placeholder="Name"
+            />
+            <br />
+            <label>Email</label>
+            <br />
+            <input
+              id="email"
+              name="email"
+              type="text"
+              onChange={handleChange}
+              required={true}
+              value={formData.email}
+              placeholder="Email"
+            />
+            <br />
+            <label>Password</label>
+            <br />
+            <input
+              id="password"
+              name="password"
+              type="password"
+              onChange={handleChange}
+              required={true}
+              value={formData.password}
+              placeholder="Password"
+            />
+            <br />
+            <input
+              type="submit"
+              value="Create Account"
+              style={{ cursor: "pointer" }}
+              className="submit"
+            />
+          </form>
+          <p className="text-red-500">{errorMessage}</p>
         </div>
-      )}
-      <div className="flex justify-center text-center h-screen">
-        <form
-          onSubmit={handleSubmit}
-          method="post"
-          className="flex flex-col items-center gap-3 w-1/2 mt-20"
-        >
-          <label className="font-bold">Name</label>
-          <input
-            id="name"
-            name="name"
-            type="text"
-            onChange={handleChange}
-            required={true}
-            value={formData.name}
-            className="w-96 p-2 border border-black rounded mb-5"
-            placeholder="Name"
-          />
-          <label className="font-bold">Email</label>
-          <input
-            id="email"
-            name="email"
-            type="text"
-            onChange={handleChange}
-            required={true}
-            value={formData.email}
-            className="w-96 p-2 border border-black rounded mb-5"
-            placeholder="Email"
-          />
-          <label className="font-bold">Password</label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            onChange={handleChange}
-            required={true}
-            value={formData.password}
-            className="w-96 p-2 border border-black rounded mb-5"
-            placeholder="Password"
-          />
-          <input
-            type="submit"
-            value="Create Account"
-            className="mt-2 px-4 py-2 bg-zinc text-white rounded hover:bg-gray-400"
-            style={{ cursor: "pointer" }}
-          />
-        </form>
-        <p className="text-red-500">{errorMessage}</p>
       </div>
     </section>
   );

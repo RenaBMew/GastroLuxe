@@ -2,6 +2,10 @@ import React from "react";
 import Image from "next/image";
 import SaveMeal from "@/app/(components)/SaveMeal";
 import AuthProvider from "@/app/(components)/AuthProvider";
+import styles from "@/app/(styles)/details.module.css";
+
+//TODO: pop-up Modal Component for user to select day and meal type to add to calendar with notification of success.
+//TODO: Favorites Icon on image corner with notification of success.
 
 async function getRecipe(id) {
   const response = await fetch(
@@ -19,59 +23,58 @@ export default async function RecipeDetails({ params }) {
   console.log(id);
 
   return (
-    <section id="LuxeBook" className="text-center">
-      <div className="container mx-auto px-4 text-left h-screen mt-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="md:col-span-1">
-            <div className="mb-4 mt-20">
-              <Image
-                src={recipe.image}
-                alt={recipe.title}
-                width={500}
-                height={400}
-                className="rounded-lg mt-4"
-              />
-            </div>
-            {/* Nutrition information section */}
-            <div className="mb-4 mt-20">
-              <h2 className="text-xl font-bold">Nutrition Information</h2>
-              <br />
-              Serving Size: {recipe.servingSize} Servings: {recipe.servings}{" "}
-              Cost Per Serving: {recipe.pricePerServing}
-              <br />
-              {recipe.nutrition.nutrients
-                .slice(0, 10)
-                .map((nutrient, index) => (
-                  <p key={index}>
-                    {nutrient.name}: {nutrient.amount} {nutrient.unit}
-                  </p>
-                ))}
-              <br />
-              <h2 className="text-xl font-bold">Dietary Information</h2>
-              <br /> Weight Watcher Points: {recipe.weightWatcherSmartPoints}
-              {recipe.vegetarian} {recipe.vegan} {recipe.glutenFree}{" "}
-              {recipe.dairyFree} {recipe.lowFodmap}{" "}
-            </div>
+    <section id="LuxeBook" className={styles.container}>
+      <div className={styles.mealContainer}>
+        <Image
+          src={recipe.image}
+          alt={recipe.title}
+          width={500}
+          height={400}
+          className={styles.img}
+        />
+
+        {/* Nutrition information section */}
+        <div className={styles.card}>
+          <h2>Nutrition Information</h2>
+          <b>Serving Size: </b> {recipe.servingSize}
+          <br /> <b>Servings: </b> {recipe.servings}
+          <br /> <b>Cost Per Serving: </b> {recipe.pricePerServing}
+          <br />
+          {recipe.nutrition.nutrients.slice(0, 10).map((nutrient, index) => (
+            <p key={index}>
+              <b>{nutrient.name}: </b>
+              {nutrient.amount} {nutrient.unit}
+            </p>
+          ))}
+          <h2>Dietary Information</h2>
+          <b>Weight Watcher Points: </b>
+          {recipe.weightWatcherSmartPoints}
+          {recipe.vegetarian} {recipe.vegan} {recipe.glutenFree}{" "}
+          {recipe.dairyFree} {recipe.lowFodmap}{" "}
+        </div>
+      </div>
+
+      {/* Recipe Information Section */}
+      <div className={styles.mealContainer}>
+        <div className={styles.cardInstructions}>
+          <h1 className="text-center">{recipe.title}</h1>
+          <AuthProvider>
+            <SaveMeal recipe={recipe} />{" "}
+          </AuthProvider>
+          <div>
+            <h2>Ingredients</h2>
+            <ul className="list-disc ml-8">
+              {recipe.extendedIngredients.map((ingredient) => (
+                <li key={ingredient.id}>{ingredient.original}</li>
+              ))}
+            </ul>
           </div>
-          {/* Recipe Information Section */}
-          <div className="md:col-span-1">
-            <div>
-              <h1>{recipe.title}</h1>
-              <AuthProvider>
-                <SaveMeal recipe={recipe} />{" "}
-              </AuthProvider>
-              <div className="mt-4">
-                <h2 className="text-xl font-bold">Ingredients</h2>
-                <ul className="list-disc ml-8">
-                  {recipe.extendedIngredients.map((ingredient) => (
-                    <li key={ingredient.id}>{ingredient.original}</li>
-                  ))}
-                </ul>
-              </div>
-              <div className="mt-4">
-                <h2 className="text-xl font-bold">Instructions</h2> | Ready in{" "}
-                {recipe.readyInMinutes} Minutes
-                <ul className="list-disc list-inside mt-2 list-none">
+          <div>
+            <h2>Instructions</h2>
+            <i>Ready in {recipe.readyInMinutes} Minutes</i>
+            {recipe.instructions ? (
+              <>
+                <ul className="list-disc list-inside list-none">
                   {recipe.instructions.split("\n").map((instruction, index) => (
                     <li
                       key={index}
@@ -84,8 +87,15 @@ export default async function RecipeDetails({ params }) {
                     />
                   ))}
                 </ul>
-              </div>
-            </div>
+              </>
+            ) : (
+              <p>
+                Oops!
+                <br />
+                {recipe.title} does not seem to have instructions. Maybe you
+                could try making this without them?
+              </p>
+            )}
           </div>
         </div>
       </div>

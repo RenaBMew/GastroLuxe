@@ -4,6 +4,9 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { options } from "../auth/[...nextauth]/options";
 
+// TODO: logic to filter out current favorites or indicate meal is favorited via icon.
+// TODO: Notification to user that favorite has been added.
+
 export async function GET() {
   try {
     const session = await getServerSession(options);

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { getSession } from "next-auth/react";
+import styles from "@/app/(styles)/luxebook.module.css";
+import { FaTrash } from "react-icons/fa";
 
 export default function LuxeBook() {
   const [session, setSession] = useState(null);
@@ -65,37 +67,35 @@ export default function LuxeBook() {
   };
 
   return (
-    <section id="LuxeBook" className="text-center">
-      <h1>Your LuxeBook</h1>
-      <p>Here is what you have Luxed so far!</p>
-      <div className="container mx-auto px-4 h-screen">
-        <div className="grid grid-cols-4 gap-4 mt-20">
-          {favorites.map((favorite) => (
-            <div
-              key={favorite.id}
-              className="relative flex flex-col items-center"
-            >
-              <Link href={`/Discover/Recipe/${favorite.id}`}>
-                <div className="relative w-64 h-64 rounded-lg mt-20">
-                  <Image
-                    src={favorite.image}
-                    alt={favorite.title}
-                    width={300}
-                    height={300}
-                    className="rounded-lg"
-                  />{" "}
-                </div>
-              </Link>
-              <h3 className="font-bold">{favorite.title}</h3>
-              <button
+    <section id="LuxeBook" className="container">
+      <div className={styles.header}>
+        <h1 className={styles.h1}>Your LuxeBook</h1>
+        <p>Here is what you have Luxed so far!</p>
+      </div>
+      <div className={styles.mealContainer}>
+        {favorites.map((favorite) => (
+          <div key={favorite.id} className={styles.mealCard}>
+            <Link href={`/Discover/Recipe/${favorite.id}`}>
+              <Image
+                src={favorite.image}
+                alt={favorite.title}
+                width={300}
+                height={220}
+                className={styles.img}
+              />
+              <div className={styles.mealTitle}>
+                <h3 className={styles.h3}>{favorite.title}</h3>
+              </div>
+            </Link>
+            <div className={styles.trash}>
+              <FaTrash
                 onClick={() => deleteFavorite(favorite.id)}
-                className="mt-2 px-4 py-2 bg-zinc text-white rounded hover:bg-gray-500"
-              >
-                UnLuxe
-              </button>
+                size={25}
+                style={{ cursor: "pointer" }}
+              />
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </section>
   );

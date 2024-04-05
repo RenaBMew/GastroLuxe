@@ -5,16 +5,16 @@ import "./globals.css";
 
 export const metadata = {
   title: "GastroLuxe",
-  description: "Generated with a Meow.",
+  description: "Meal Planning and Recipe Discovery App",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       {/*<AuthProvider> needed for client side rendering, if used*/}
-      <body className="bg-gray-100">
+      <body>
         <Nav />
-        <div className="m-2">{children}</div>
+        <div>{children}</div>
         <Footer />
       </body>
       {/*</AuthProvider> needed for client side rendering, if used*/}

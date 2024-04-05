@@ -4,6 +4,11 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { options } from "../auth/[...nextauth]/options";
 
+//TODO: Adjust Delete logic to delete meal type by ID.
+//TODO: Adjust PUT logic to update meal type by ID. (Limit meal types to 1 per day).
+//TODO: Notification to user that meal has been removed from list.
+// TODO: Notification to user that meal has been added.
+
 export async function GET() {
   try {
     const session = await getServerSession(options);

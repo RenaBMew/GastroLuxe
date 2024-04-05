@@ -1,0 +1,66 @@
+.header {
+  text-align: center;
+  margin-top: 60px;
+  margin-bottom: 30px;
+}
+
+.h1 {
+  color: var(--eggplant);
+}
+
+.h3 {
+  font-size: 16px;
+  color: white;
+}
+
+.mealContainer {
+  width: 100%;
+  padding: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 100px;
+  justify-content: center;
+}
+
+.mealCard {
+  position: relative;
+  padding: 25px;
+}
+
+.img {
+  border-radius: 50px;
+  border: 1px solid var(--eggplant);
+  margin-top: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 5px 10px 0 rgba(78, 15, 55, 0.1),
+    0 10px 20px 0 rgba(78, 15, 55, 0.1);
+}
+
+.mealTitle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 83%;
+  height: 60px;
+  background-color: rgb(78, 15, 55, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.icon {
+  color: white;
+  cursor: pointer;
+  position: absolute;
+  top: 68%;
+  left: 15%;
+}
+
+.icon:hover,
+.clickFav {
+  color: var(--eggplant);
+  cursor: pointer;
+}

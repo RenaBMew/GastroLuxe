@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { getSession } from "next-auth/react";
+import styles from "@/app/(styles)/meals.module.css";
 import { FaTrash } from "react-icons/fa";
+
+//TODO: Adjust logic to delete meal type by ID.
 
 export default function MealPlan() {
   const [session, setSession] = useState(null);
@@ -59,41 +62,45 @@ export default function MealPlan() {
     );
   };
 
+  function shortenTitle(text, maxLength) {
+    if (text.length <= maxLength) {
+      return text;
+    }
+    return text.substr(0, text.lastIndexOf(" ", maxLength)) + "...";
+  }
+
   // meal card or 'add' button > link to search, argue mealType for UI label
   const mealCard = (meal, mealType) => {
     if (meal) {
       return (
-        <>
-          <div className="relative rounded-lg flex flex-col justify-center items-center h-50">
-            <p className="absolute top-0 left-0 bg-zinc text-white px-2 py-1 rounded-tl-lg rounded-br-lg">
-              {mealType}
-            </p>
-            <Link href={`/Discover/Recipe/${meal.id}`}>
-              <Image
-                src={meal.image}
-                alt={meal.title}
-                width={300}
-                height={300}
-                className="rounded-lg"
-              />
-            </Link>
+        <div className={styles.mealCard}>
+          <Link href={`/Discover/Recipe/${meal.id}`}>
+            <Image
+              src={meal.image}
+              alt={meal.title}
+              width={200}
+              height={250}
+              className={styles.img}
+            />
+            <div className={styles.mealTitle}>
+              <h3 className={styles.h3}>{mealType}</h3>
+              <p className={styles.p}>{shortenTitle(meal.title, 30)}</p>
+            </div>
+          </Link>
+          <div className={styles.trash}>
             <FaTrash
               onClick={() => deleteMeal(meal.id)}
-              className="absolute bottom-1 right-1 text-zinc-500 hover:text-white"
               size={20}
               style={{ cursor: "pointer" }}
             />
           </div>
-          <p>{meal.title}</p>
-        </>
+        </div>
       );
     } else {
       return (
-        <>
-          <div className="flex justify-center items-center h-[10rem]">
-            <p className="text-zinc">No meal planned for this day.</p>
-          </div>
-        </>
+        <div className={styles.noMealContainer}>
+          <p className={styles.noMeal}>No meal planned for this day.</p>
+        </div>
       );
     }
   };
@@ -124,39 +131,30 @@ export default function MealPlan() {
   };
 
   return (
-    <section id="Meal Calendar" className="text-center">
-      <h1>Your Meal Plan</h1>
-      <p>Here is your weekly meal plan.</p>
-      <div className="grid grid-cols-7 gap-2 h-screen">
+    <section id="Meal Calendar" className="container">
+      <div className={styles.header}>
+        <h1 className={styles.h1}>Your Meal Plan</h1>
+        <p>Here is your weekly meal plan.</p>
+      </div>
+      <div className={styles.calendar}>
         {calendar.map((dayMeals, index) => (
-          <div key={index} className="mt-20">
-            <div
-              className={`col-start-${
-                index + 1
-              } row-start-1 font-bold text-lg h-10`}
-            >
+          <div key={index} className={styles.dayColumn}>
+            <div className={styles.dayTitle}>
               {dayMeals?.day || "No Meal Available"}
             </div>
-            {/* Rows 2,3,4 meal type */}
-            <div
-              className={`col-start-${index + 1} row-start-2 mt-10 h-[10rem]`}
-            >
+            <div className={styles.mealType}>
               {mealCard(
                 dayMeals?.meals.find((meal) => meal.meal === "breakfast"),
                 "Breakfast"
               )}
             </div>
-            <div
-              className={`col-start-${index + 1} row-start-3 mt-10 h-[10rem]`}
-            >
+            <div className={styles.mealType}>
               {mealCard(
                 dayMeals?.meals.find((meal) => meal.meal === "lunch"),
                 "Lunch"
               )}
             </div>
-            <div
-              className={`col-start-${index + 1} row-start-4 mt-10 h-[10rem]`}
-            >
+            <div className={styles.mealType}>
               {mealCard(
                 dayMeals?.meals.find((meal) => meal.meal === "dinner"),
                 "Dinner"

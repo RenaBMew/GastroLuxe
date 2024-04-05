@@ -4,6 +4,8 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import User from "@/app/(models)/User";
 import bcrypt from "bcrypt";
 
+//TODO: Add email verification for user registration.
+
 export const options = {
   providers: [
     GitHubProvider({
