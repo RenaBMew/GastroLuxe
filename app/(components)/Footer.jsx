@@ -5,11 +5,14 @@ export default function Footer() {
   return (
     <footer>
       <div>
-        &copy;2024 Created by Serena Brown using the{" "}
-        <Link href="https://spoonacular.com/food-api" target="_new">
-          Spoonacular API
+        Created by{" "}
+        <Link href="https://github.com/RenaBMew" target="_new">
+          RenaBMew
         </Link>
-        for educational purposes only.
+        with the{" "}
+        <Link href="https://spoonacular.com/food-api" target="_new">
+          Spoonacular API.
+        </Link>
       </div>
       <Image src="/favicon.png" alt="Star Icon" width={20} height={20} />
     </footer>

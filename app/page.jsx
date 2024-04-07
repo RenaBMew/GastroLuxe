@@ -1,8 +1,11 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { getServerSession } from "next-auth";
+import { options } from "@/app/api/auth/[...nextauth]/options";
 
-const Home = () => {
+const Home = async () => {
+  const session = await getServerSession(options);
   return (
     <div>
       <div className="splash">
@@ -22,11 +25,25 @@ const Home = () => {
           Welcome to GastroLuxe, where foodies can find their next culinary
           adventure and eat Luxuriously!
         </p>
-
-        <p>If you do not have an account already, please create one below!</p>
-        <Link href="/Register">
-          <button className="mt-10">Sign Up!</button>
-        </Link>
+        {session ? (
+          <>
+            {" "}
+            <p className="pt-10">Welcome back {session.user.name}!</p>
+            <p>Ready to get cooking? Lets see whats on the menu!</p>
+            <Link href="/MealPlan">
+              <button className="mt-10">Your Meal Plan!</button>
+            </Link>
+          </>
+        ) : (
+          <>
+            <p>
+              If you do not have an account already, please create one below!
+            </p>
+            <Link href="/Register">
+              <button className="mt-10">Sign Up!</button>
+            </Link>
+          </>
+        )}
       </div>
       <div className="intro-container">
         <div className="intro-blurb">

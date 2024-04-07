@@ -15,6 +15,7 @@ const Nav = async () => {
             alt="GastroLuxe Logo"
             width={60}
             height={60}
+            className="gastrologo"
           />
         </Link>
         <div>
