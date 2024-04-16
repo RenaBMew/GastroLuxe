@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { options } from "../api/auth/[...nextauth]/options";
-import { RiVipCrown2Fill } from "react-icons/ri";
 import Image from "next/image";
 
 const Nav = async () => {
@@ -29,7 +28,7 @@ const Nav = async () => {
             </>
           ) : (
             <>
-              <Link href="/api/auth/signin">Login</Link>
+              <Link href="/Login">Login</Link> {/* "api/auth/signin" */}
               <Link href="/Register">Register</Link>
             </>
           )}
