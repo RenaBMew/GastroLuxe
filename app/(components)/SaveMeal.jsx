@@ -86,7 +86,7 @@ export default function SaveMeal({ recipe }) {
       </div>
       <div id="Meal Plan Calendar" className="text-center mt-5">
         <h3>Add to Calendar</h3>
-        <label for="day" className="hidden">
+        <label for="day" class="visually-hidden">
           Meal Day Selection
         </label>
         <select
@@ -104,8 +104,7 @@ export default function SaveMeal({ recipe }) {
           <option value="Friday">Friday</option>
           <option value="Saturday">Saturday</option>
         </select>
-
-        <label for="meal" className="hidden">
+        <label for="meal" class="visually-hidden">
           Meal Type Selection
         </label>
         <select

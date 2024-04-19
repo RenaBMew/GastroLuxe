@@ -346,6 +346,17 @@ button:hover {
   border: 1px solid var(--eggplant);
 }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
 /*Responsive Properties*/
 
 @media screen and (max-width: 800px) {
