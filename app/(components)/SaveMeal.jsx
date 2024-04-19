@@ -84,12 +84,15 @@ export default function SaveMeal({ recipe }) {
       <div className="text-center">
         <button onClick={() => AddFavorite(recipe)}>Add to LuxeBook!</button>
       </div>
-      <div className="text-center mt-5">
+      <div id="Meal Plan Calendar" className="text-center mt-5">
         <h3>Add to Calendar</h3>
-
+        <label for="day" className="hidden">
+          Meal Day Selection
+        </label>
         <select
           id="day"
           value={selectedDay}
+          aria-labelledby="MealDay"
           onChange={(e) => setSelectedDay(e.target.value)}
         >
           <option value="">Select a Day</option>
@@ -102,6 +105,9 @@ export default function SaveMeal({ recipe }) {
           <option value="Saturday">Saturday</option>
         </select>
 
+        <label for="meal" className="hidden">
+          Meal Type Selection
+        </label>
         <select
           id="meal"
           value={selectedMealType}

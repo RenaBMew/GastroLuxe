@@ -92,13 +92,14 @@ nav {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--mango);
+  background-color: #f4a41a;
   position: fixed;
   width: 100%;
   height: 80px;
   z-index: 10;
 }
 nav a {
+  font-size: 20px;
   color: white;
   margin-right: 35px;
 }
@@ -316,7 +317,7 @@ button:hover {
   padding: 50px;
   text-align: center;
   color: white;
-  background-color: rgb(78, 15, 55, 0.7);
+  background-color: rgba(78, 15, 55, 0.76);
   margin-top: 100px;
   margin-bottom: 150px;
 }
@@ -324,7 +325,7 @@ button:hover {
   padding: 50px;
   display: flex;
   flex-wrap: wrap;
-  background-color: rgb(244, 172, 42, 0.8);
+  background-color: rgba(238, 163, 25, 0.945);
   color: white;
   margin-bottom: 150px;
 }
@@ -342,6 +343,7 @@ button:hover {
   object-fit: cover;
   margin-top: 20px;
   margin-bottom: 20px;
+  border: 1px solid var(--eggplant);
 }
 
 /*Responsive Properties*/
