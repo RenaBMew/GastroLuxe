@@ -136,33 +136,37 @@ export default function MealPlan() {
         <h1 className={styles.h1}>Your Meal Plan</h1>
         <p>Here is your weekly meal plan.</p>
       </div>
-      <div className={styles.calendar}>
-        {calendar.map((dayMeals, index) => (
-          <div key={index} className={styles.dayColumn}>
-            <div className={styles.dayTitle}>
-              {dayMeals?.day || "No Meal Available"}
+      {loading ? (
+        <p className="loading">Loading...</p>
+      ) : (
+        <div className={styles.calendar}>
+          {calendar.map((dayMeals, index) => (
+            <div key={index} className={styles.dayColumn}>
+              <div className={styles.dayTitle}>
+                {dayMeals?.day || "No Meal Available"}
+              </div>
+              <div className={styles.mealType}>
+                {mealCard(
+                  dayMeals?.meals.find((meal) => meal.meal === "breakfast"),
+                  "Breakfast"
+                )}
+              </div>
+              <div className={styles.mealType}>
+                {mealCard(
+                  dayMeals?.meals.find((meal) => meal.meal === "lunch"),
+                  "Lunch"
+                )}
+              </div>
+              <div className={styles.mealType}>
+                {mealCard(
+                  dayMeals?.meals.find((meal) => meal.meal === "dinner"),
+                  "Dinner"
+                )}
+              </div>
             </div>
-            <div className={styles.mealType}>
-              {mealCard(
-                dayMeals?.meals.find((meal) => meal.meal === "breakfast"),
-                "Breakfast"
-              )}
-            </div>
-            <div className={styles.mealType}>
-              {mealCard(
-                dayMeals?.meals.find((meal) => meal.meal === "lunch"),
-                "Lunch"
-              )}
-            </div>
-            <div className={styles.mealType}>
-              {mealCard(
-                dayMeals?.meals.find((meal) => meal.meal === "dinner"),
-                "Dinner"
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </section>
   );
 }

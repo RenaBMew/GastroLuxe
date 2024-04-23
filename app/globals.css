@@ -29,11 +29,10 @@ body {
   color: var(--eggplant);
   font-size: var(--font-size);
   line-height: 1.5;
-
   font-family: Poppins, "Trebuchet MS", Arial;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 150vh;
 }
 h1 {
   font-size: calc(var(--font-size) * 2.25);
@@ -83,6 +82,12 @@ a {
 a:hover,
 a:focus {
   color: var(--hover);
+  font-weight: bold;
+}
+
+p.loading {
+  font-size: 20px;
+  color: var(--eggplant);
   font-weight: bold;
 }
 

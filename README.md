@@ -6,7 +6,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 This application is created to help individuals experience and learn about the joy of cooking and how preparing meals at home can help save money, maintain a healthier lifestyle, and the joy of sharing meals with others.
 
-![Splash Page Preview](./public/gastroluxe.splash.png "Passing")
+![Splash Page Preview](./public/gastroluxe.splash.png "GastroLuxe Page")
 
 ## Possible Additions
 

@@ -72,31 +72,35 @@ export default function LuxeBook() {
         <h1 className={styles.h1}>Your LuxeBook</h1>
         <p>Here is what you have Luxed so far!</p>
       </div>
-      <div className={styles.mealContainer}>
-        {favorites.map((favorite) => (
-          <div key={favorite.id} className={styles.mealCard}>
-            <Link href={`/Discover/Recipe/${favorite.id}`}>
-              <Image
-                src={favorite.image}
-                alt={favorite.title}
-                width={300}
-                height={220}
-                className={styles.img}
-              />
-              <div className={styles.mealTitle}>
-                <h3 className={styles.h3}>{favorite.title}</h3>
+      {loading ? (
+        <p className="loading">Loading...</p>
+      ) : (
+        <div className={styles.mealContainer}>
+          {favorites.map((favorite) => (
+            <div key={favorite.id} className={styles.mealCard}>
+              <Link href={`/Discover/Recipe/${favorite.id}`}>
+                <Image
+                  src={favorite.image}
+                  alt={favorite.title}
+                  width={300}
+                  height={220}
+                  className={styles.img}
+                />
+                <div className={styles.mealTitle}>
+                  <h3 className={styles.h3}>{favorite.title}</h3>
+                </div>
+              </Link>
+              <div className={styles.trash}>
+                <FaTrash
+                  onClick={() => deleteFavorite(favorite.id)}
+                  size={25}
+                  style={{ cursor: "pointer" }}
+                />
               </div>
-            </Link>
-            <div className={styles.trash}>
-              <FaTrash
-                onClick={() => deleteFavorite(favorite.id)}
-                size={25}
-                style={{ cursor: "pointer" }}
-              />
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </section>
   );
 }

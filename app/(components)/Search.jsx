@@ -13,13 +13,16 @@ export default function Search() {
   const { data: session } = useSession();
   // const [favIcon, setFavIcon] = useState(false);
   const [apiLimitReached, setApiLimitReached] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const searchRecipes = async () => {
+    setIsLoading(true);
     try {
       const response = await fetch(
         `https://api.spoonacular.com/recipes/complexSearch?query=${query}&number=20&apiKey=${process.env.NEXT_PUBLIC_SPOONACULAR_API_KEY}`
       );
       const data = await response.json();
-      //Message limit is reached.
+      //API limit is reached.
       if (data.status === "failure") {
         setApiLimitReached(true);
       } else {
@@ -27,6 +30,15 @@ export default function Search() {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  // Add Enter key click to search
+  const handleEnterToSearch = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      searchRecipes();
     }
   };
 
@@ -77,11 +89,14 @@ export default function Search() {
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={handleEnterToSearch}
           placeholder="Search for recipes..."
         />
         <button onClick={searchRecipes}>Search</button>
       </div>
-      {apiLimitReached ? (
+      {isLoading ? (
+        <p className="loading">Loading...</p>
+      ) : apiLimitReached ? (
         <p>Apologies! The server is currently down due to too many searches!</p>
       ) : (
         <div className={styles.mealContainer}>
