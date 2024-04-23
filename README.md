@@ -8,6 +8,8 @@ This application is created to help individuals experience and learn about the j
 
 ![Splash Page Preview](./public/gastroluxe.splash.png "GastroLuxe Page")
 
+[GastroLuxe Deployment Link](https://gastro-luxe-five.vercel.app/) :: https://gastro-luxe-five.vercel.app/
+
 ## Possible Additions
 
 **Social Features:**
@@ -53,8 +55,6 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Contributions
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Feel free to fork or contribute! If using this as base for another project, please don't forget about me. I worked pretty hard on this. Thank you!
